@@ -21,9 +21,13 @@
 
 -define(SERVER, ?MODULE).
 
--callback handle_unconfirmed(Key :: atom(), Id :: integer(), GameState :: term()) -> {GameMod :: atom(), GameState :: term()}.
--callback handle_confirmed(Key :: atom(), Id :: integer(), GameState :: term()) -> {GameMod :: atom(), GameState :: term()}.
--callback handle_cancellation(Key :: atom(), Id :: integer(), GameState :: term()) -> {GameMod :: atom(), GameState :: term()}.
+-callback fixture_details(FixtureDetails :: map(), GameState :: map()) -> GameState :: map().
+-callback variables(Variables :: map(), GameState :: map()) -> GameState :: map().
+-callback handle_unconfirmed(IncidentDetails :: map(), GameState :: map()) -> GameState :: map().
+-callback handle_confirmed(IncidentDetails :: map(), GameState :: map()) -> GameState :: map().
+-callback handle_cancelled(IncidentDetails :: map(), GameState :: map()) -> GameState :: map().
+-callback should_price(GameState :: map()) -> {'true', GameState :: map()} | {'false', GameState :: map()}.
+-callback should_publish(GameState :: map()) -> {'true', GameState :: map()} | {'false', GameState :: map()}.
 
 msg(Msg) ->
     gen_server:cast(?SERVER, Msg).
